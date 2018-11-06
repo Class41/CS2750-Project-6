@@ -3,6 +3,7 @@
 // # 11-6-18
 
 #include <stdio.h>
+#include "bank.h"
 
 void DisplayMenu()
 {
@@ -17,4 +18,26 @@ void DisplayMenu()
            6. View accounts\n");
 }
 
-
+int ExecuteFunction(int option)
+{
+   switch(option)
+   {
+      case 0:
+         BankExit();
+         return 1;
+      case 1:
+         return 1;
+      case 2:
+         return 1;
+      case 3:
+         return 1;
+      case 4:
+         return 1;
+      case 5:
+         return 1;
+      case 6:
+         return 1;
+      default:
+         return 0;
+   }
+}

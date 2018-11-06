@@ -6,5 +6,6 @@
 #define _MENU_H
 
 void DisplayMenu();
+int ExecuteFunction();
 
 #endif

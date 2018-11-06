@@ -3,6 +3,7 @@
 // # 11-6-18
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "menu.h"
 
 typedef struct 
@@ -14,7 +15,13 @@ typedef struct
 
 int main()
 {
-   DisplayMenu();   
-
+   int selection;
+   while(1)
+   {
+   DisplayMenu();
+   scanf("%d", &selection);
+   ExecuteFunction(selection);  
+   }
+   
    return 0;
 }
