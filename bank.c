@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "main.h"
-
+#include <string.h>
 
 void BankExit()
 {
@@ -14,7 +14,43 @@ void BankExit()
 
 void BankDeposit(struct account bnk[])
 {
-   printf("\nWhat account would you like to deposit to?");
+   char accountNum[7];
+   int i;
+   do
+   {
+   printf("\nWhat account number would you like to deposit to?\n");
+   
+   scanf(" %s", accountNum);
+   
+   for(i = 0; i < 6; i++)
+      if(!isdigit(accountNum[i]))
+         accountNum[6] = 'F';
+
+   } while(accountNum[6] != NULL);
+   
+   int acctNum = atoi(accountNum);
+   int found = 0;
+   
+   for(i = 0; i < 50; i++)
+   {
+      if(bnk[i].account == acctNum)
+         found = 1;
+   }
+
+   if(found == 0)
+   {
+      printf("Account not found!\n");
+      return;
+   }
+   
+   int depositVal;
+   printf("How much would you like to deposit?\n");
+   scanf(" %d", depositVal);
+
+   bnk[i].balance += depositVal;
+   writeData(bnk);
+   printf("The balance on account %d is now %d\n", acctNum, bnk[i].balance);
+      
 }
 
 void BankWithdraw(struct account bnk[])

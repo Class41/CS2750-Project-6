@@ -53,13 +53,15 @@ int main()
 {
    int selection;
    struct account bnk[50]; 
+   char pause;
 
    while(1)
    {
       DisplayMenu();
       readData(bnk);
-      scanf("%d", &selection);
-      ExecuteFunction(selection, bnk);  
+      scanf(" %d", &selection);
+      ExecuteFunction(selection, bnk);
+      scanf(" %c", &pause); 
    }
    
    return 0;
