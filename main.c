@@ -14,8 +14,9 @@ struct account
    char name[100];
 };
 
-int writeData(struct account* bnk)
+int writeData(struct account bnk[])
 {
+   printf("in write: %d", bnk[1].balance);
    FILE* fsout = fopen("accounts.dat", "wb");
    
    if(bnk == NULL)
@@ -29,36 +30,46 @@ int writeData(struct account* bnk)
    {
       fwrite(&bnk[i], sizeof(struct account), 1, fsout);
    }
-   
+
    fclose(fsout);
    return 0;
 }
 
 
-void readData()
+int readData(struct account bnk[])
 {
+   FILE* fsin = fopen("accounts.dat", "rb");
+   
+   if(bnk == NULL)
+   {
+      printf("accounts.dat missing and unable to open!");
+      return -1;
+   }
 
+   int i;
+   for(i = 0; i < 50; i++)
+   {
+      fread(&bnk[i], sizeof(struct account), 1, fsin);
+   } 
+ 
+   fclose(fsin);
+   return 0;
 }
 
 int main()
 {
    int selection;
-   struct account bankaccounts[50];
-
-   writeData(bankaccounts);
+   struct account bnk[50];
+   readData(bnk);
+    
+   //readData(bankaccounts);
+   //writeData(bankaccounts);
    
 
-   //bankaccounts[count].balance = 5;
-   //bankaccounts[count].account = 123456;
-   //strcpy(bankaccounts[count].name, "bob");
-   
-
-   //FILE* data2 = fopen("accounts.dat", "rb");
-
-   //fread(&bankaccounts[1], sizeof(struct account), 1, data2);
-
-
-   //printf("%d", bankaccounts[1].balance);
+  // bankaccounts[1].balance = 5;
+  // bankaccounts[1].account = 123456;
+  // strcpy(bankaccounts[1].name, "bob");
+  
 
    while(1)
    {
