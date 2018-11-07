@@ -70,6 +70,51 @@ void BankDeposit(struct account bnk[])
 
 void BankWithdraw(struct account bnk[])
 {
+   char accountNum[7];
+   int i;
+   do
+   {
+   printf("\nWhat account number would you like to withdraw from?\n");
+   
+   scanf(" %s", accountNum);
+   
+   for(i = 0; i < 6; i++)
+      if(!isdigit(accountNum[i]))
+         accountNum[6] = 'F';
+
+   } while(accountNum[6] != NULL);
+   
+   int acctNum = atoi(accountNum);
+   int found = 0;
+   
+   for(i = 0; i < 50; i++)
+   {
+      if(bnk[i].account == acctNum)
+         {
+            found = 1;
+            break;
+         }
+   }
+
+   if(found == 0)
+   {
+      printf("Account not found!\n");
+      return;
+   }
+   
+   int withVal;
+   printf("Balance: %d\nHow much would you like to withdraw?\n", bnk[i].balance);
+   scanf(" %d", &withVal);
+
+   if(bnk[i].balance - withVal < 0)
+   {
+      printf("\nNot enough funds in account!\n");
+      return;
+   }
+
+   bnk[i].balance -= withVal;
+   writeData(bnk);
+   printf("The balance on account %d is now %d\n", bnk[i].account, bnk[i].balance);
 
 }
 
@@ -128,11 +173,50 @@ void BankAddAccount(struct account bnk[])
 
 void BankRemoveAccount(struct account bnk[])
 {
+   int acctNum;
+   printf("What account number should be removed?\n ");
+   
+   scanf(" %d",&acctNum);
 
+   int position;
+   int i;
+   for(i = 0; i < 50; i++)
+   {
+      if(bnk[i].account == acctNum)
+      {
+         bnk[i].account = 0;
+         bnk[i].balance = 0;
+
+         strcpy(bnk[i].name[0], "");
+         strcpy(bnk[i].name[1], "");
+         strcpy(bnk[i].name[2], "");
+
+         writeData(bnk);
+         printf("\nAccount deleted.\n");
+         return;
+      }
+   }
+
+   printf("\nNo such account found!\n");
 }
 
 void BankBalanceInquire(struct account bnk[])
 {
+        
+   int acctNum;
+   printf("What account number's balance should be checked?\n ");
+   
+   scanf(" %d",&acctNum);
+
+   int position;
+   int i;
+   for(i = 0; i < 50; i++)
+   {
+      if(bnk[i].account == acctNum)
+      {
+         printf("\nThe account balance is: %d\n", bnk[i].balance);
+      }
+   }
 
 }
 
