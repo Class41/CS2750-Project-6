@@ -5,7 +5,9 @@
 #ifndef _MENU_H
 #define _MENU_H
 
+#include "main.h"
+
 void DisplayMenu();
-int ExecuteFunction();
+int ExecuteFunction(int option,struct account bnk[] );
 
 #endif

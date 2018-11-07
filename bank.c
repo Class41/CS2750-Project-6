@@ -4,13 +4,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef struct 
-{
-   double balance;
-   int account;
-   char name[];
-} account;
+#include "main.h"
 
 
 void BankExit()
@@ -18,27 +12,32 @@ void BankExit()
    exit(0);
 }
 
-void BankDeposit()
+void BankDeposit(struct account bnk[])
 {
    printf("\nWhat account would you like to deposit to?");
 }
 
-void BankAddAccount()
+void BankWithdraw(struct account bnk[])
+{
+
+}
+
+void BankAddAccount(struct account bnk[])
 {
         
 }
 
-void BankRemoveAccount()
+void BankRemoveAccount(struct account bnk[])
 {
 
 }
 
-void BankBalanceInquire()
+void BankBalanceInquire(struct account bnk[])
 {
 
 }
 
-void BankViewAccounts()
+void BankViewAccounts(struct account bnk[])
 {
 
 }

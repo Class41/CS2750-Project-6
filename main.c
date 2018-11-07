@@ -6,17 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "menu.h"
-
-struct account
-{
-   int balance;
-   int account;
-   char name[100];
-};
+#include "main.h"
 
 int writeData(struct account bnk[])
 {
-   printf("in write: %d", bnk[1].balance);
    FILE* fsout = fopen("accounts.dat", "wb");
    
    if(bnk == NULL)
@@ -59,23 +52,14 @@ int readData(struct account bnk[])
 int main()
 {
    int selection;
-   struct account bnk[50];
-   readData(bnk);
-    
-   //readData(bankaccounts);
-   //writeData(bankaccounts);
-   
-
-  // bankaccounts[1].balance = 5;
-  // bankaccounts[1].account = 123456;
-  // strcpy(bankaccounts[1].name, "bob");
-  
+   struct account bnk[50]; 
 
    while(1)
    {
-   //DisplayMenu();
-   scanf("%d", &selection);
-   ExecuteFunction(selection);  
+      DisplayMenu();
+      readData(bnk);
+      scanf("%d", &selection);
+      ExecuteFunction(selection, bnk);  
    }
    
    return 0;

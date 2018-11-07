@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include "bank.h"
+#include "main.h"
 
 void DisplayMenu()
 {
@@ -18,7 +19,7 @@ void DisplayMenu()
            6. View accounts\n");
 }
 
-int ExecuteFunction(int option)
+int ExecuteFunction(int option, struct account bnk[])
 {
    switch(option)
    {
@@ -26,16 +27,22 @@ int ExecuteFunction(int option)
          BankExit();
          return 1;
       case 1:
+         BankDeposit(bnk);
          return 1;
       case 2:
+         BankWithdraw(bnk);
          return 1;
       case 3:
+         BankAddAccount(bnk);
          return 1;
       case 4:
+         BankRemoveAccount(bnk);
          return 1;
       case 5:
+         BankBalanceInquire(bnk);
          return 1;
       case 6:
+         BankViewAccounts(bnk);
          return 1;
       default:
          return 0;
