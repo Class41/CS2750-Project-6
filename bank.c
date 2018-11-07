@@ -7,6 +7,18 @@
 #include "main.h"
 #include <string.h>
 
+int GetNextAvailableBankSlot(struct account bnk[])
+{
+   int i;
+   for(i = 0; i < 50; i++)
+   {
+      if(bnk[i].account == 0)
+         return i;
+   }
+
+   return -1;
+}
+
 void BankExit()
 {
    exit(0);
@@ -34,7 +46,10 @@ void BankDeposit(struct account bnk[])
    for(i = 0; i < 50; i++)
    {
       if(bnk[i].account == acctNum)
-         found = 1;
+         {
+            found = 1;
+            break;
+         }
    }
 
    if(found == 0)
@@ -44,12 +59,12 @@ void BankDeposit(struct account bnk[])
    }
    
    int depositVal;
-   printf("How much would you like to deposit?\n");
-   scanf(" %d", depositVal);
+   printf("Balance: %d\nHow much would you like to deposit?\n", bnk[i].balance);
+   scanf(" %d", &depositVal);
 
    bnk[i].balance += depositVal;
    writeData(bnk);
-   printf("The balance on account %d is now %d\n", acctNum, bnk[i].balance);
+   printf("The balance on account %d is now %d\n", bnk[i].account, bnk[i].balance);
       
 }
 
@@ -60,7 +75,55 @@ void BankWithdraw(struct account bnk[])
 
 void BankAddAccount(struct account bnk[])
 {
-        
+   int position = GetNextAvailableBankSlot(bnk);
+   if(position == -1)
+   {
+         printf("\nThe bank is full!");
+         return;
+   }
+
+   char accountNum[7];
+   int i;
+
+   do
+   {
+   printf("\nWhat is the desired account number?\n");
+   
+   scanf(" %s", accountNum);
+   
+   for(i = 0; i < 6; i++)
+      if(!isdigit(accountNum[i]))
+      {
+         printf("\nINVALID INPUT!\n");
+         accountNum[6] = 'F';
+      }
+   } while(accountNum[6] != NULL);
+
+   int acctNum = atoi(accountNum);
+   
+   for(i = 0; i < 50; i++)
+   {
+      if(acctNum == bnk[i].account)
+      {
+         printf("\nAccount already exists. Returning to menu.\n");
+         return;
+      }
+   }
+
+   printf("\nFirst Name: ");
+   scanf(" %s", bnk[position].name[0]);
+
+   printf("\nMiddle Name: ");
+   scanf(" %s", bnk[position].name[1]);
+
+   printf("\nLast Name: ");
+   scanf(" %s", bnk[position].name[2]);
+   
+   bnk[position].account = acctNum;
+   bnk[position].balance = 0;
+
+   printf("\nAccount created!\n");
+   writeData(bnk);
 }
 
 void BankRemoveAccount(struct account bnk[])
@@ -75,5 +138,11 @@ void BankBalanceInquire(struct account bnk[])
 
 void BankViewAccounts(struct account bnk[])
 {
-
+   int i;
+   for(i = 0; i < 50; i++)
+   {
+      if(bnk[i].account != 0)
+      printf("%d: %d  %d\t%s %s %s\n", i, bnk[i].account, bnk[i].balance, 
+            bnk[i].name[0], bnk[i].name[1], bnk[i].name[2]);
+   }
 }

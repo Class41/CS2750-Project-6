@@ -7,6 +7,7 @@
 #include <string.h>
 #include "menu.h"
 #include "main.h"
+#include <ctype.h>
 
 int writeData(struct account bnk[])
 {
@@ -52,8 +53,13 @@ int readData(struct account bnk[])
 int main()
 {
    int selection;
-   struct account bnk[50]; 
+   struct account* bnk = malloc(sizeof(struct account) * 50); 
    char pause;
+
+//   bnk[0].balance = 500;
+//  bnk[0].account = 123456;
+
+//   writeData(bnk);
 
    while(1)
    {
@@ -61,7 +67,8 @@ int main()
       readData(bnk);
       scanf(" %d", &selection);
       ExecuteFunction(selection, bnk);
-      scanf(" %c", &pause); 
+      printf("Continuing in 5 seconds...\n");
+      sleep(5);
    }
    
    return 0;
