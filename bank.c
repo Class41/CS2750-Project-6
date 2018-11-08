@@ -57,16 +57,21 @@ void BankDeposit(struct account bnk[])
       printf("Account not found!\n");
       return;
    }
-   
-   int depositVal;
-   printf("Holder: %s %s %s\nBalance: %d\nHow much would you like to deposit?\n",
+
+   float depositVal;
+   printf("Holder: %s %s %s\nBalance: $%.2f\nHow much would you like to deposit?\n",
       bnk[i].name[0], bnk[i].name[1], bnk[i].name[2],bnk[i].balance);
 
-   scanf(" %d", &depositVal);
+   scanf(" %f", &depositVal);
 
+   if(depositVal < 0)
+   {
+      printf("\nInvalid entry\n");
+      return;
+   }
    bnk[i].balance += depositVal;
    writeData(bnk);
-   printf("The balance on account %d is now %d\n", 
+   printf("The balance on account %d is now $%.2f\n", 
       bnk[i].account, bnk[i].balance);
       
 }
@@ -105,10 +110,10 @@ void BankWithdraw(struct account bnk[])
       return;
    }
    
-   int withVal;
-   printf("Holder: %s %s %s\nBalance: %d\nHow much would you like to withdraw?\n",
+   float withVal;
+   printf("Holder: %s %s %s\nBalance: $%.2f\nHow much would you like to withdraw?\n",
       bnk[i].name[0], bnk[i].name[1], bnk[i].name[2], bnk[i].balance);
-   scanf(" %d", &withVal);
+   scanf(" %f", &withVal);
 
    if(bnk[i].balance - withVal < 0)
    {
@@ -116,9 +121,15 @@ void BankWithdraw(struct account bnk[])
       return;
    }
 
+   if(withVal < 0)
+   {
+      printf("\nInvalid entry\n");
+      return;
+   }
+
    bnk[i].balance -= withVal;
    writeData(bnk);
-   printf("The balance on account %d is now %d\n", 
+   printf("The balance on account %d is now $%.2f\n", 
       bnk[i].account, bnk[i].balance);
 
 }
@@ -170,7 +181,7 @@ void BankAddAccount(struct account bnk[])
    scanf(" %s", bnk[position].name[2]);
    
    bnk[position].account = acctNum;
-   bnk[position].balance = 0;
+   bnk[position].balance = 0.00;
 
    printf("\nAccount created!\n");
    writeData(bnk);
@@ -219,12 +230,13 @@ void BankBalanceInquire(struct account bnk[])
    {
       if(bnk[i].account == acctNum)
       {
-         printf("Account: %d\nHolder: %s %s %s\nBalance: %d\n",
+         printf("Account: %d\nHolder: %s %s %s\nBalance: $%.2f\n",
             bnk[i].account, bnk[i].name[0], bnk[i].name[1], bnk[i].name[2],
             bnk[i].balance);
+         return;
       }
    }
-
+   printf("\nNo such bank account found!\n");
 }
 
 void BankViewAccounts(struct account bnk[])
@@ -234,8 +246,8 @@ void BankViewAccounts(struct account bnk[])
    {
       if(bnk[i].account != 0)
       {
-      printf("|-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n\n");
-      printf("\tHolder: %s %s %s\n\tAccount: %d\n\tBalance: %d\n\n", 
+      printf("\n|-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n\n");
+      printf("\tHolder: %s %s %s\n\tAccount: %d\n\tBalance: $%.2f\n\n", 
          bnk[i].name[0], bnk[i].name[1], bnk[i].name[2],
          bnk[i].account, bnk[i].balance);
       }

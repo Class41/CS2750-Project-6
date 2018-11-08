@@ -28,21 +28,27 @@ int ExecuteFunction(int option, struct account bnk[])
          BankExit();
          return 1;
       case 1:
+         printf("-> Deposit\n");
          BankDeposit(bnk);
          return 1;
       case 2:
+         printf("-> Withdraw\n");
          BankWithdraw(bnk);
          return 1;
       case 3:
+         printf("-> Add Account\n");
          BankAddAccount(bnk);
          return 1;
       case 4:
+         printf("-> Del Account\n");
          BankRemoveAccount(bnk);
          return 1;
       case 5:
+         printf("-> Balance\n");
          BankBalanceInquire(bnk);
          return 1;
       case 6:
+         printf("-> View Accounts\n");
          BankViewAccounts(bnk);
          return 1;
       default:

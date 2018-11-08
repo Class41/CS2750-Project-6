@@ -8,6 +8,7 @@
 #include "menu.h"
 #include "main.h"
 #include <ctype.h>
+#include <unistd.h>
 
 int writeData(struct account bnk[])
 {
@@ -56,10 +57,8 @@ int main()
    struct account* bnk = malloc(sizeof(struct account) * 50); 
    char pause;
 
-//   bnk[0].balance = 500;
-//  bnk[0].account = 123456;
-
-//   writeData(bnk);
+   if(!(access("accounts.dat", F_OK) != -1) )
+      writeData(bnk);
 
    while(1)
    {
@@ -69,6 +68,7 @@ int main()
       ExecuteFunction(selection, bnk);
       printf("Continuing in 5 seconds...\n");
       sleep(5);
+      selection = 0;
    }
    
    return 0;
