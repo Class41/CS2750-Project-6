@@ -55,7 +55,7 @@ int readData(struct account bnk[])
 int main()
 {
    int selection; //keeps track of user's selection
-   struct account* bnk = malloc(sizeof(struct account) * 50); //allocate memory 
+   struct account* bnk = calloc(50, sizeof(struct account)); //allocate memory 
    char pause; //unused
 
    if(bnk == NULL)
