@@ -8,7 +8,7 @@
 #include "main.h"
 
 int GetNextAvailableBankSlot(struct account bnk[]);
-void BankExit();
+void BankExit(struct account bnk[]);
 void BankDeposit(struct account bnk[]);
 void BankWithdraw(struct account bnk[]);
 void BankAddAccount(struct account bnk[]);

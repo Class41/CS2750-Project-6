@@ -5,6 +5,7 @@
 #ifndef _MAIN_H
 #define _MAIN_H
 
+//Account structure
 struct account
 {
    float balance;

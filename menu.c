@@ -6,6 +6,7 @@
 #include "bank.h"
 #include "main.h"
 
+//Shows the menu on call
 void DisplayMenu()
 {
    system("clear");
@@ -20,12 +21,14 @@ void DisplayMenu()
            6. View accounts\n");
 }
 
+//Calls option with structure array bnk.
 int ExecuteFunction(int option, struct account bnk[])
 {
    switch(option)
    {
       case 0:
-         BankExit();
+         printf("\n-> Exit\nGoodbye!\n\n");
+         BankExit(bnk);
          return 1;
       case 1:
          printf("-> Deposit\n");

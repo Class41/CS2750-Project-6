@@ -7,26 +7,30 @@
 #include "main.h"
 #include <string.h>
 
+//returns the array index of the next available bank slot if any
 int GetNextAvailableBankSlot(struct account bnk[])
 {
    int i;
    for(i = 0; i < 50; i++)
    {
-      if(bnk[i].account == 0)
-         return i;
+      if(bnk[i].account == 0) //bank slot empty, return its position
+         return i; 
    }
 
-   return -1;
+   return -1; //bank full
 }
 
-void BankExit()
+//quit the application
+void BankExit(struct account bnk[])
 {
+   free(bnk);
    exit(0);
 }
 
+//deposit money to bank menu call
 void BankDeposit(struct account bnk[])
 {
-   char accountNum[7];
+   char accountNum[7]; //hold 7 chars (1 extra to check for valid input)
    int i;
    do
    {
@@ -35,19 +39,19 @@ void BankDeposit(struct account bnk[])
    scanf(" %s", accountNum);
    
    for(i = 0; i < 6; i++)
-      if(!isdigit(accountNum[i]))
+      if(!isdigit(accountNum[i])) //if any of the first 6 are not digits, fail
          accountNum[6] = 'F';
 
-   } while(accountNum[6] != NULL);
+   } while(accountNum[6] != NULL); //while there is a 7th value
    
-   int acctNum = atoi(accountNum);
+   int acctNum = atoi(accountNum); //conver to integer
    int found = 0;
    
    for(i = 0; i < 50; i++)
    {
       if(bnk[i].account == acctNum)
          {
-            found = 1;
+            found = 1; //bank account found
             break;
          }
    }
@@ -62,23 +66,24 @@ void BankDeposit(struct account bnk[])
    printf("Holder: %s %s %s\nBalance: $%.2f\nHow much would you like to deposit?\n",
       bnk[i].name[0], bnk[i].name[1], bnk[i].name[2],bnk[i].balance);
 
-   scanf(" %f", &depositVal);
+   scanf(" %f", &depositVal); //get the amount to deposit
 
-   if(depositVal < 0)
+   if(depositVal < 0) //check for negatives
    {
       printf("\nInvalid entry\n");
       return;
    }
    bnk[i].balance += depositVal;
-   writeData(bnk);
+   writeData(bnk); //write data to file after updating balance
    printf("The balance on account %d is now $%.2f\n", 
       bnk[i].account, bnk[i].balance);
       
 }
 
+//withdraw call from menu
 void BankWithdraw(struct account bnk[])
 {
-   char accountNum[7];
+   char accountNum[7]; //same as deposit for this section
    int i;
    do
    {
@@ -115,7 +120,7 @@ void BankWithdraw(struct account bnk[])
       bnk[i].name[0], bnk[i].name[1], bnk[i].name[2], bnk[i].balance);
    scanf(" %f", &withVal);
 
-   if(bnk[i].balance - withVal < 0)
+   if(bnk[i].balance - withVal < 0) //check if funds exist in the account
    {
       printf("\nNot enough funds in account!\n");
       return;
@@ -134,6 +139,7 @@ void BankWithdraw(struct account bnk[])
 
 }
 
+//create bank account call
 void BankAddAccount(struct account bnk[])
 {
    int position = GetNextAvailableBankSlot(bnk);
@@ -158,13 +164,13 @@ void BankAddAccount(struct account bnk[])
          printf("\nINVALID INPUT!\n");
          accountNum[6] = 'F';
       }
-   } while(accountNum[6] != NULL);
+   } while(accountNum[6] != NULL); //make sure no letters and only 6 input
 
    int acctNum = atoi(accountNum);
    
    for(i = 0; i < 50; i++)
    {
-      if(acctNum == bnk[i].account)
+      if(acctNum == bnk[i].account) //check if account exists
       {
          printf("\nAccount already exists. Returning to menu.\n");
          return;
@@ -184,9 +190,10 @@ void BankAddAccount(struct account bnk[])
    bnk[position].balance = 0.00;
 
    printf("\nAccount created!\n");
-   writeData(bnk);
+   writeData(bnk); //update file
 }
 
+//remove account menu call
 void BankRemoveAccount(struct account bnk[])
 {
    int acctNum;
@@ -198,7 +205,7 @@ void BankRemoveAccount(struct account bnk[])
    int i;
    for(i = 0; i < 50; i++)
    {
-      if(bnk[i].account == acctNum)
+      if(bnk[i].account == acctNum) //if we find the bank acc, set all to default
       {
          bnk[i].account = 0;
          bnk[i].balance = 0;
@@ -207,7 +214,7 @@ void BankRemoveAccount(struct account bnk[])
          strcpy(bnk[i].name[1], "");
          strcpy(bnk[i].name[2], "");
 
-         writeData(bnk);
+         writeData(bnk); //write to file
          printf("\nAccount deleted.\n");
          return;
       }
@@ -216,19 +223,20 @@ void BankRemoveAccount(struct account bnk[])
    printf("\nNo such account found!\n");
 }
 
+//Get bank balance menu call
 void BankBalanceInquire(struct account bnk[])
 {
         
    int acctNum;
    printf("What account number's balance should be checked?\n ");
    
-   scanf(" %d",&acctNum);
+   scanf(" %d",&acctNum); //get account number
 
    int position;
    int i;
    for(i = 0; i < 50; i++)
    {
-      if(bnk[i].account == acctNum)
+      if(bnk[i].account == acctNum) //print details if account is found
       {
          printf("Account: %d\nHolder: %s %s %s\nBalance: $%.2f\n",
             bnk[i].account, bnk[i].name[0], bnk[i].name[1], bnk[i].name[2],
@@ -239,6 +247,7 @@ void BankBalanceInquire(struct account bnk[])
    printf("\nNo such bank account found!\n");
 }
 
+//Get bank account list menu call
 void BankViewAccounts(struct account bnk[])
 {
    int i;
