@@ -10,6 +10,7 @@ void DisplayMenu()
 {
    system("clear");
    printf("\
+           Choose an operation (0-6):\n\
            0. Exit\n\
            1. Deposit\n\
            2. Withdraw\n\

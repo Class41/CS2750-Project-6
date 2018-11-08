@@ -59,12 +59,15 @@ void BankDeposit(struct account bnk[])
    }
    
    int depositVal;
-   printf("Balance: %d\nHow much would you like to deposit?\n", bnk[i].balance);
+   printf("Holder: %s %s %s\nBalance: %d\nHow much would you like to deposit?\n",
+      bnk[i].name[0], bnk[i].name[1], bnk[i].name[2],bnk[i].balance);
+
    scanf(" %d", &depositVal);
 
    bnk[i].balance += depositVal;
    writeData(bnk);
-   printf("The balance on account %d is now %d\n", bnk[i].account, bnk[i].balance);
+   printf("The balance on account %d is now %d\n", 
+      bnk[i].account, bnk[i].balance);
       
 }
 
@@ -103,7 +106,8 @@ void BankWithdraw(struct account bnk[])
    }
    
    int withVal;
-   printf("Balance: %d\nHow much would you like to withdraw?\n", bnk[i].balance);
+   printf("Holder: %s %s %s\nBalance: %d\nHow much would you like to withdraw?\n",
+      bnk[i].name[0], bnk[i].name[1], bnk[i].name[2], bnk[i].balance);
    scanf(" %d", &withVal);
 
    if(bnk[i].balance - withVal < 0)
@@ -114,7 +118,8 @@ void BankWithdraw(struct account bnk[])
 
    bnk[i].balance -= withVal;
    writeData(bnk);
-   printf("The balance on account %d is now %d\n", bnk[i].account, bnk[i].balance);
+   printf("The balance on account %d is now %d\n", 
+      bnk[i].account, bnk[i].balance);
 
 }
 
@@ -214,7 +219,9 @@ void BankBalanceInquire(struct account bnk[])
    {
       if(bnk[i].account == acctNum)
       {
-         printf("\nThe account balance is: %d\n", bnk[i].balance);
+         printf("Account: %d\nHolder: %s %s %s\nBalance: %d\n",
+            bnk[i].account, bnk[i].name[0], bnk[i].name[1], bnk[i].name[2],
+            bnk[i].balance);
       }
    }
 
@@ -226,7 +233,12 @@ void BankViewAccounts(struct account bnk[])
    for(i = 0; i < 50; i++)
    {
       if(bnk[i].account != 0)
-      printf("%d: %d  %d\t%s %s %s\n", i, bnk[i].account, bnk[i].balance, 
-            bnk[i].name[0], bnk[i].name[1], bnk[i].name[2]);
+      {
+      printf("|-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n\n");
+      printf("\tHolder: %s %s %s\n\tAccount: %d\n\tBalance: %d\n\n", 
+         bnk[i].name[0], bnk[i].name[1], bnk[i].name[2],
+         bnk[i].account, bnk[i].balance);
+      }
    }
+   printf("|-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n\n");
 }
