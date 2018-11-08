@@ -58,6 +58,12 @@ int main()
    struct account* bnk = malloc(sizeof(struct account) * 50); //allocate memory 
    char pause; //unused
 
+   if(bnk == NULL)
+   {
+      printf("Failed to allocated memory. Aborting.");
+      return 1;
+   }
+
    if(!(access("accounts.dat", F_OK) != -1) )
       writeData(bnk);
 

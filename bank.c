@@ -42,7 +42,7 @@ void BankDeposit(struct account bnk[])
       if(!isdigit(accountNum[i])) //if any of the first 6 are not digits, fail
          accountNum[6] = 'F';
 
-   } while(accountNum[6] != NULL); //while there is a 7th value
+   } while(accountNum[6] != '\0'); //while there is a 7th value
    
    int acctNum = atoi(accountNum); //conver to integer
    int found = 0;
@@ -95,7 +95,7 @@ void BankWithdraw(struct account bnk[])
       if(!isdigit(accountNum[i]))
          accountNum[6] = 'F';
 
-   } while(accountNum[6] != NULL);
+   } while(accountNum[6] != '\0');
    
    int acctNum = atoi(accountNum);
    int found = 0;
@@ -164,7 +164,7 @@ void BankAddAccount(struct account bnk[])
          printf("\nINVALID INPUT!\n");
          accountNum[6] = 'F';
       }
-   } while(accountNum[6] != NULL); //make sure no letters and only 6 input
+   } while(accountNum[6] != '\0'); //make sure no letters and only 6 input
 
    int acctNum = atoi(accountNum);
    
